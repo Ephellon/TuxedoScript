@@ -1,6 +1,10 @@
 package src;
 
-// from: ScriptDemo5.java
+/**
+ * @author: Ephellon Dantzler
+ * 12 December 2015
+ * from: ScriptDemo5.java
+*/
 
 import java.io.*;
 import java.util.Scanner;
