@@ -7,6 +7,6 @@ ECMA Script6, CoffeeScript, Java, and Python
 
 Not for use in IE
 
-A [Pen](http://codepen.io/Ephellon/pen/qbOaRP) by [Mink CBOS - Ephellon Dantzler](http://codepen.io/Ephellon) on [CodePen](http://codepen.io/).
+A [Pen](http://codepen.io/Ephellon/pen/EvxVaJ) by [Mink CBOS - Ephellon Dantzler](http://codepen.io/Ephellon) on [CodePen](http://codepen.io/).
 
-[License](http://codepen.io/Ephellon/pen/qbOaRP/license).
+[License](http://codepen.io/Ephellon/pen/EVxVaj/license).
