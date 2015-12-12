@@ -16,5 +16,6 @@ In order to run the compiler,
 - unzip the zip file,
 - go to your terminal,
 - and run the compiler through there.
+
 Or, if you have a Java editing app,
 - import the files into a new class and simply run the compiler as an application.
