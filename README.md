@@ -18,6 +18,6 @@ In order to run the compiler,
 - and run the compiler through there.
 
 Or, if you have a Java editing app,
-- import the files into a new class and simply run the compiler as an application.
+- import the files into a "src" package, and new class and simply run the compiler as an application.
 
 _Note: this is my first Hy-Brid compiler, so feel free to leave notes/comments/critisism that will help make it better_
