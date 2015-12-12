@@ -1,6 +1,6 @@
 package src;
 
-//ScriptDemo5.java
+// from: ScriptDemo5.java
 
 import java.io.*;
 import java.util.Scanner;
