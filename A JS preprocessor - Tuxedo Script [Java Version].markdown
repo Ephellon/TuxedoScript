@@ -1,4 +1,4 @@
-Java Only - JS preprocessor - Tuxedo Script [0.05MiB]
+Java/JS preprocessor - Tuxedo Script [0.05MiB]
 -----------------------------------------------------
 JS TS (Tuxedo Script 11.6.V)
 
