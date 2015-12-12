@@ -1,0 +1,340 @@
+/********
+---- Tuxedo Baseline ----
+  -- Special (a.k.a "pa.t.ch" [patches]) --
+<$n> ... </$n> - no.t.ch, any code put between the html-like tags will be treated as native JS
+<$s> ... </$s> - so.t.ch, any code put between the html-like tags will be parsed as some TS, then JS (shorcuts, and threads can be used)
+<$t> ... </$t> - to.t.ch, no need, just a proposal
+
+  -- Comments --
+## - single line comment, or multi-line comment ending
+#* - multi-line comment starter
+#*# - multi-line comment starter ("author tags", or "embroider tags")
+  @aut - author
+  @lie - license
+  @dat - date
+  @tie - time
+  @url - url
+  @ver - version
+##! - strict mode
+## +thread - enable an html-attribute via inline script
+  can be: advance clean eval hide html-editor js-editor js-unit legacy math ugly wordy
+## -thread - disable an html-attribute via inline script
+  can be: advance clean eval hide html-editor js-editor js-unit legacy math ugly wordy
+## *a: b; - replace all $a with b (soft baste)
+## **a: b; - replace all $a with parsed b (hard baste)
+
+  -- Sequences and Strings --
+\c - escape character, for use in/out of strings (darns)
+  can be: / \ & ? : ; . @ # % $ < > + - * ( ) [ ] { } | ^
+`...` - multiline string /runs script/
+  `...!white-sapce` - removes extra white space characters /!white-space can be put anywhere in the string/
+
+  -- Variables --
+#a - var a
+a--b - a_b
+a#b - a[b]
+a#0b - a[a.length - b]
+@ - this
+@a - this.a
+$of - typeof
+$del - delete
+$args - arguments
+$doc - document
+$win - window
+$nav - navigator
+$loc - location
+$cont - continue
+$con - console
+$# - Object
+  $Obj - Object
+  $obj - Object
+.$id - getElementById
+.$class - getElementsByClassName
+.$tag - getElementsByTagName
+.$html - innerHTML
+.$text - innerText
+.$val - value
+.$qy - querySelector
+.$Qy - querySelectorAll
+a: b - if there isn't a comma after b, there will be one added, unless b is the last item
+
+  -- functions --
+<- - return
+$a b, c, d - function a(b, c, d)
+ :$a, b, c - function(a, b, c)
+ =$a, b, c - function(a, b, c)
+ ,$a, b, c - function(a, b, c)
+$: - function()
+ ${ - function()
+
+  -- Loops and Statements --
+a?? - test if a exists
+a!?? - test if a doesn't exist
+
+?a: - if a
+  ?a { - if a
+:: - else
+  }{ - else
+:?a: - else if a
+  }?a{ - else if a
+
+?#a, b - for a, to b by 1
+  ?#a, b, c - for a = b, to c by 1
+  ?#a, b, c, d - for a = b, to c, by d
+-?#a, b - for a, to b by -1
+  -?#a, b, c - for a = b, to c by -1
+  -?#a, b, c, d - for a = b, to c, by d
+
+?#a:b - for a in b
+?#a:b ? c - for a, to b by 1, do c /!deprecated/ use ?#a,b {c}
+
+?: - do
+?a; - while a
+
+?(a) - switch a
+@def - default
+@a: - case a
+
+---- "Advance thread" features ----
+.a - class x
+.a b - class a extends y
+*. - super
+@(a, b, c) - constructor(a, b, c)
+b => a - const a = b
+a --> b - a = (arguments) => b
+-> - =>
+$*a, b, c: - void function(a, b, c)
+  $*a, b, c { - void function(a, b, c)
+prom a - creates a promissory function (like Java's "interface", Tux "gusset"); see http://codepen.io/Ephellon/pen/MKWaja
+  Tux will automatically create a main function to call from, and switch through the number/type(s) of arguments to find a match
+  supported types: Array Boolean Function Number Object RegExp String Symbol * [any]
+
+---- "Legacy thread" features ----
+a &= b - a = a && b
+a |= b - a = a || b
+a ^= b - if a != null, a = b
+a ?= b - if a == null, a = b
+
+  -- Special --
+@x..y: - "case x..y:" -- this will repeat "case ...:" for (x-y) times /i.e. "@4..6:" -> "case 4: case 5: case 6:"
+
+  -- Arrays (try limiting them to one per line) --
+a[b..c] - a.slice(b, c)
+a[..c] - a.slice(0, c)
+a[b..] - a.slice(b)
+a[.] - a.slice(0)
+a[*] - a.split("")
+a[*]b - a.split(b)
+a[+]<b,c,...> - a.concat(b, c, ...)
+a[++]<b,c,...> - a.push(b, c, ...)
+a[<] - a.shift()
+a[>]<b,c,...> - a.unshift(b, c, ...)
+a[~]<b> - a.every(b)
+a[&]<b> - a.join(b)
+a[+?]<b,c> - a.indexOf(b, c) > -1
+a[?]<b,c> - a.indexOf(b, c)
+a[-?]<b,c> - a.lastIndexOf(b, c)
+a[=] - a.reverse()
+a[^]<b> - a.sort(b)
+a[-] - a.pop()
+d[] - if d is a number, it creates a d-dimension array (Tux Array "gores"), i.e. 3[] === [[[]]] /called on as [x][y][z]/
+d"..." - (Tux String "gores") if d is a number, then the string will be repeated d many times
+  d'...' - if d is a number, then the string will be repeated d many times
+  d`...` - if d is a number, then the string will be repeated d many times
+r:a - if r is a reserved word, it will be double-quoted
+  .r - if r is a reserved word, it will be double-quoted and bracketed; ["r"]
+
+  -- Strings --
+"${a}" - interpolation, ..." + a + "...
+'${a}' - interpolation, ...' + a + '...
+`${a}` - interpolation, ...` + a + `...
+"..." "..." - automatic concatination, "..." + "..."
+  '...' '...' - automatic concatination, '...' + '...'
+  `...` `...` - automatic concatination, `...` + `...`
+
+  -- RegExp --
+\j - JS variables, [a-zA-Z\$_][\w\d\$_]*
+\J - non-JS variables, [^a-zA-Z\$_][\w\d\$_]*
+
+---- "Math thread" features ----
+a(b) = c - function a(b){ return c; }
+da - if d is a number, then d * a
+a~b - ((a % b + b) % b)
+|a| - Math.abs(a)
+a^b - Math.pow(a, b)
+  a**b - Math.pow(a, b)
+\a\ - Math.sqrt(a)
+a\b\ - "a" root of b, i.e. 3\x\ is the cube root of x
+a _ b - Math.floor(a/b) /notice the spaces/
+log a (b) - log, base a, of b /log(b) / log(a)/
+@.property - Math.property, i.e. @.PI = Math.PI, @.log = Math.log /notice the ./
+
+---- "Wordy thread" features ----
+  -- Loops and Statements --
+a exists - test if a exists
+  a exist - test if a exists
+a !exists - test if a doesn't exist
+  a !exist - test if a doesn't exist
+
+if a: - if a
+  if a { - if a
+else - automatic braces for else
+else-if a: - else if a
+  else-if a { - else if a
+  else-when a: - else if a
+  else-when a { - else if a
+  else-where a: - else if a
+  else-where a { - else if a
+if a then b else c - ternary operator, (a)?b:c
+
+for a, b - for a, to b by 1
+  for a, b, c - for a = b, to c by 1
+  for a, b, c, d - for a = b, to c, by d
+-for a, b - for a, to b by -1
+  -for a, b, c - for a = b, to c by -1
+  -for a, b, c, d - for a = b, to c, by d
+
+for a: b - for a in b
+  for a in b - for a in b
+for a: b? c - for a, to b by 1, do c
+  for a in b do c - for a, to b by 1, do c
+
+do: - do
+  do - do
+while a; - while a
+until a; - while !a
+
+switch a - switch a
+
+a(b) from c while d - for each item in c, if d is true, do b = c[...], a(b)
+a(b) from c - for each item in c, do b = c[...], a(b)
+a() from b while c - for each item in b, if c is true, do a
+
+  -- Baseline --
+#r - if r is a Tuxedo reserved word, then it will be a variable
+  \r - if r is a Tuxedo reserved word, then it will be a variable
+AND - &&
+OR - ||
+XOR - ^
+NOT - !
+  does not - !
+  do not - !
+  doesnt - !
+does - !!
+on - true
+  yes - true
+  good - true
+off - false
+  no - false
+  bad - false
+maybe - true | false /uses Math.random()/
+is not - !==
+  isnt - !==
+equals - ===
+  equal - ===
+  is - ===
+the x is - x =
+a = b in c - a = c[b]
+a = b from c - a  = c.indexOf(b)
+<?> - ? armscye
+<!> - ! armscye
+<#> - # armscye
+
+---- "Ugly thread" features ----
+single line comments become multi-line
+undefined - void 0
+true - !0
+  !false - !0
+  !!true - !0
+false - !1
+  !true - !1
+  !!false - !1
+Number(a) - (+a)
+a.toString() - a + ""
+while(x) - for(;x;)
+multiple zeros are "crunched" down to a 1eX form, i.e. 10000000 = 1e7
+boolean tests become lazy, i.e. && = &, || = |
+
+---- "JS-Unit thread" features ----
+  -- Baseline --
+@@ - JSUNIT
+@@toconsole - redirect all output to the console
+(@Test ... { ... }#) - test to run, and optional event arguments
+  (@Test ... { ... }) - "empty" test, doesn't run
+@Before - code to run before every test
+@After - code to run after every test
+
+  -- Assert Tests --
+@@assert(value, [comment]) - log that you wanted value
+@@assertTrue(value, [comment]) - log that you wanted value to be true
+@@assertFalse(value, [comment]) - log that you wanted value to be false
+@@assertEquals(expected, recieved, [comment]) - log that you wanted recieved to equal expected
+@@assertNotEquals(expected, recieved, [comment]) - log that you wanted recieved to not equal expected
+@@assertNull(value, [comment]) - log that you wanted value to be null
+@@assertNotNull(value, [comment]) - log that you wanted value to not be null
+@@assertUndefined(value, [comment]) - log that you wanted typeof value to be undefined
+@@assertNotUndefined(value, [comment]) - log that you wanted typeof value to not be undefined
+@@assertNaN(value, [comment]) - log that you wanted value to be NaN
+@@assertNotNaN(value, [comment]) - log that you wanted value to not be NaN
+@@assertFail(comment) - log fail, "comment"
+
+---- "Advance + Legacy cord [threads]" features ----
+  -- Splats --
+$a b... - same as b = arguments
+$a b, c... - c will be all arguments after b
+$a b..., c - b will be all arguments before c
+$a b, c..., d - c will be all arguments between b and d
+a(b...) - same as a(b) uses .apply
+a(b, c...) - a([b c]) uses .apply
+a(b..., c) - a([b c]) uses .apply
+a(b, c..., d) - a([b c d]) uses .apply
+<@> - @ armscye
+<&> - & armscye
+
+---- Armscyes ----
+! - "index_counter"
+@ - "arguments"
+# - "undefined"
+? - "ANON"
+* - "use strict"
+& - "Array" or "[].slice.call"
+
+---- Godets [Legacy] ----
+a b - a(b)
+a "b" - a("b")
+  a 'b' - a('b')
+  a `b` - a(`b`)
+a /b/ - a(/b/)
+
+---- Tuxedo Methods ----
+* $ means executable
+* ~ means above, but with different arguments
+* tuxedo === tux
+tux
+  .get
+    .form
+$     .data - get form data from the URI
+  .storage
+$   .set[...] - set the local storage [name, data, name, data ...]
+$   .check[name] - see if the local storage at the name exists
+$   .get[name] - get the local storage at the name
+$   .delete[name] - delete the local storage at the name
+$ .attr[element, attribute, value] - set the attribute as the value
+$ .id[element, attribute, value] - set the attribute as the value
+  ~ .id[element, html] - set the innerHTML as the value
+  ~ .id[element] - just return the element, by id
+$ .class[element, attribute, value] - set the attribute as the value
+  ~ .class[element, html] - set the innerHTML as the value
+  ~ .class[element] - just return the element, by class name
+$ .tag[element, attribute, value] - set the attribute as the value
+  ~ .tag[element, html] - set the innerHTML as the value
+  ~ .tag[element] - just return the element, by tag name
+$ .ele[element, number, attribute, value] - set the attribute as the value
+  ~ .ele[element, number, html] - set the innerHTML as the value
+  ~ .ele[element, number] - just return the element, by element name (via querySelector)
+$ .save[data, name] - tux.storage.set(name, data)
+$ .load[name] - tux.storage.get(name)
+$ .delete[name] - tux.storage.delete(name)
+$ .typeof[object] - returns the typeof "object" to a string, i.e. true === "<true>", [1, 2, 3] === "[1, 2, 3]"
+$ .typeOf[a, b, c] - returns a string of each arguments type
+********/
