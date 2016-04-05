@@ -1,6 +1,6 @@
-Java/JS preprocessor - Tuxedo Script [0.05MiB]
+Java/JS preprocessor - Tuxedo Script
 -----------------------------------------------------
-JS TS (Tuxedo Script 11.6.V)
+JS TS (Tuxedo Script 15.9.0)
 
 Inspiration:
 ECMA Script6, CoffeeScript, Java, and Python
@@ -14,10 +14,10 @@ A [Pen](http://codepen.io/Ephellon/pen/EvxVaJ) by [Mink CBOS - Ephellon Dantzler
 ### How to Run the Compiler
 In order to run the compiler,
 - unzip the zip file,
-- go to your terminal,
-- and run the compiler through there.
+- open tuxedo.bat (go to the terminal and type tuxedo.sh if using Linux),
+- and follow the prompt.
 
 Or, if you have a Java editing app,
-- import the files into a "src" package, and new class and simply run the compiler as an application.
+- import the tuxedo.jar file and simply run the compiler as an application.
 
 _Note: this is my first Hy-Brid compiler, so feel free to leave notes/comments/critisism that will help make it better_
