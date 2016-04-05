@@ -1,0 +1,102 @@
+/* TuxedoScript 12.5.1
+  @aut: Ephellon Dantzler
+  @dat: Tue Sept 8, 2015
+  @tie: 23:51 CST -06:00
+  @lie: "Free for use, as long as my name, CoffeeScript, Python, and ECMA are mentioned"
+*/
+##!, strict mode required for advanced features
+## Coffee Script-Like Examples, see coffeescript.org
+
+## Extendable features
+## +advance
+## +eval
+## +js-editor
+## +legacy
+## +math
+## +wordy
+## -hide
+## -html-editor
+## -ugly
+
+## Assignment
+#number = 42
+#opposite = true
+3.14 => PI
+
+## Conditions
+number = -42 if opposite.
+  /* or
+    number = -42 if opposite is true.
+    number = -42 unless opposite is false.
+  */
+
+## Functions
+$square x {
+  <- x^2
+}
+  /* or, with +math
+     square(x) = x^2
+  */
+$eat f {
+  $doc.writeln "I ate the ${f}<br>"
+}
+$discuss f {
+  // f[f.length-1]
+  #s = "s" if f#01 != 's'.
+    else s = "";
+  $doc.writeln "The ${f} look${s} good<br>"
+}
+$doc.writeln = $x {
+  $doc.body.$html += "${x}<br>"
+}
+
+## Arrays
+#list = [1, 2, 3, 4, 5]
+
+## Objects
+#math = {
+  root: @.sqrt
+  square: square
+  cube: $x {
+    <- x^3
+  }
+}
+
+## Splats + Interpolation
+$race winner, runners... {
+  $doc.writeln "${winner}, ${runners}"
+}
+
+## Existence
+alert "I knew it" if Elvis exists.
+
+## Array comprehension
+#menu = ['tacos', 'burritos', 'sushi', 'spaghetti']
+
+if menu exists {
+  discuss food from menu
+}
+
+eat food from menu while the food isnt "sushi"
+
+## Simple English
+#sushi = "sushi" from menu
+#third = 3 in menu
+
+## Reserved words
+#off = off
+off = off OR NOT on
+
+## Spanning functions
+#prom fnName
+$fnName <String string, Number number> {
+  <- "You sent: '${string}', and ${number}"
+}
+
+$fnName <Object object, Array array> {
+  <- "You sent an object and array"
+}
+
+$fnName <RegExp regexp, Boolean bool> {
+  <- "It's ${bool} that ${regexp} matches everything"
+}
