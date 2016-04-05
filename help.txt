@@ -20,6 +20,7 @@
   can be: advance clean eval hide html-editor js-editor js-unit legacy math ugly wordy
 ## -thread - disable an html-attribute via inline script
   can be: advance clean eval hide html-editor js-editor js-unit legacy math ugly wordy
+## @x - emulates that JS version: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.8.1, 1.8.5
 ## *a: b; - replace all $a with b (soft baste)
 ## **a: b; - replace all $a with parsed b (hard baste)
 
@@ -34,7 +35,8 @@
 a--b - a_b
 a#b - a[b]
 a#0b - a[a.length - b]
-@ - this
+@ - this or self, depending on the JS version
+# - this or self, depending on the JS version
 @a - this.a
 $of - typeof
 $del - delete
@@ -56,6 +58,7 @@ $# - Object
 .$val - value
 .$qy - querySelector
 .$Qy - querySelectorAll
+...$args - depending on the JS version, either calls on the last constructor, or does nothing
 a: b - if there isn't a comma after b, there will be one added, unless b is the last item
 
   -- functions --
@@ -97,7 +100,7 @@ a!?? - test if a doesn't exist
 
 ---- "Advance thread" features ----
 .a - class x
-.a b - class a extends y
+.a b - class a extends b
 *. - super
 @(a, b, c) - constructor(a, b, c)
 b => a - const a = b
@@ -110,6 +113,7 @@ prom a - creates a promissory function (like Java's "interface", Tux "gusset"); 
   supported types: Array Boolean Function Number Object RegExp String Symbol * [any]
 
 ---- "Legacy thread" features ----
+a ~= b - a = -(a - b)
 a &= b - a = a && b
 a |= b - a = a || b
 a ^= b - if a != null, a = b
@@ -138,23 +142,27 @@ a[=] - a.reverse()
 a[^]<b> - a.sort(b)
 a[-] - a.pop()
 d[] - if d is a number, it creates a d-dimension array (Tux Array "gores"), i.e. 3[] === [[[]]] /called on as [x][y][z]/
-d"..." - (Tux String "gores") if d is a number, then the string will be repeated d many times
-  d'...' - if d is a number, then the string will be repeated d many times
-  d`...` - if d is a number, then the string will be repeated d many times
 r:a - if r is a reserved word, it will be double-quoted
   .r - if r is a reserved word, it will be double-quoted and bracketed; ["r"]
 
   -- Strings --
 "${a}" - interpolation, ..." + a + "...
-'${a}' - interpolation, ...' + a + '...
-`${a}` - interpolation, ...` + a + `...
+  '${a}' - interpolation, ...' + a + '...
+  `${a}` - interpolation, ...` + a + `...
 "..." "..." - automatic concatination, "..." + "..."
   '...' '...' - automatic concatination, '...' + '...'
   `...` `...` - automatic concatination, `...` + `...`
+d * "..." - (Tux String "gores") if d is a number, then the string will be repeated d many times
+  d * '...' - if d is a number, then the string will be repeated d many times
+  d * `...` - if d is a number, then the string will be repeated d many times
 
   -- RegExp --
+\a - Alpha characters, [a-zA-Z]
+\A - Non-alpha characters, [^a-zA-Z]
 \j - JS variables, [a-zA-Z\$_][\w\d\$_]*
 \J - non-JS variables, [^a-zA-Z\$_][\w\d\$_]*
+\k - lowercase, \k[A-fR-Z] = /[a-fr-z]/
+\K - uppercase, \K[A0fR-Z] = /[A-FR-Z]/
 
 ---- "Math thread" features ----
 a(b) = c - function a(b){ return c; }
@@ -163,9 +171,9 @@ a~b - ((a % b + b) % b)
 |a| - Math.abs(a)
 a^b - Math.pow(a, b)
   a**b - Math.pow(a, b)
-\a\ - Math.sqrt(a)
-a\b\ - "a" root of b, i.e. 3\x\ is the cube root of x
-a _ b - Math.floor(a/b) /notice the spaces/
+/?a/ - Math.sqrt(a)
+a/?b/ - "a" root of b, i.e. 3\x\ is the cube root of x
+a%%b - Math.floor(a/b)
 log a (b) - log, base a, of b /log(b) / log(a)/
 @.property - Math.property, i.e. @.PI = Math.PI, @.log = Math.log /notice the ./
 
@@ -308,7 +316,8 @@ a /b/ - a(/b/)
 
 ---- Tuxedo Methods ----
 * $ means executable
-* ~ means above, but with different arguments
+* ~ means "same as above," but with different arguments
+* # means a property, that isn't a method
 * tuxedo === tux
 tux
   .get
@@ -337,4 +346,15 @@ $ .load[name] - tux.storage.get(name)
 $ .delete[name] - tux.storage.delete(name)
 $ .typeof[object] - returns the typeof "object" to a string, i.e. true === "<true>", [1, 2, 3] === "[1, 2, 3]"
 $ .typeOf[a, b, c] - returns a string of each arguments type
+$ .precompiled - returns an object as if a snap-shot of the data being compiled
+#   .content - returns the actual "snap-shot"
+#   .channels - returns the channels {no}
+#   .comments - returns an object of the comments {plural, single}
+#   .regexps - returns the regexps
+#   .strings - returns an object of strings {double, grave, single}
+#   .threads - returns an object of threads {available, disabled, enabled}
+$ .stamp - returns an object containing a start, stop, and difference of the TuxedoScript compile time {start, end, span}
+# .version - the TuxedoScript version
+$ .support - returns an array of all JS versions supported by the user's browser i.e. [1.1 ... 1.8.5]
+$ .runtime - returns the JS version that has been detected
 ********/
